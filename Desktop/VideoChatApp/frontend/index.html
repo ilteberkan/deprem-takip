@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Chat</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="auth-container" class="container">
+        <div class="auth-tabs">
+            <button class="tab-btn active" data-tab="login">Giriş Yap</button>
+            <button class="tab-btn" data-tab="register">Kayıt Ol</button>
+        </div>
+
+        <!-- Giriş Formu -->
+        <form id="login-form" class="auth-form">
+            <h2>Giriş Yap</h2>
+            <input type="email" id="login-email" placeholder="E-posta" required>
+            <input type="password" id="login-password" placeholder="Şifre" required>
+            <button type="submit">Giriş Yap</button>
+        </form>
+
+        <!-- Kayıt Formu -->
+        <form id="signup-form" class="auth-form hidden">
+            <h2>Kayıt Ol</h2>
+            <input type="text" id="firstName" placeholder="Ad" required>
+            <input type="text" id="lastName" placeholder="Soyad" required>
+            <input type="email" id="email" placeholder="E-posta" required>
+            <input type="password" id="password" placeholder="Şifre" required>
+            <div id="password-error" class="error hidden"></div>
+            <small class="password-info">
+                Şifre en az 10 karakter uzunluğunda olmalı, en az bir büyük harf ve bir rakam içermelidir.
+            </small>
+            <input type="number" id="age" placeholder="Yaş" required>
+            <button type="submit">Kayıt Ol</button>
+        </form>
+    </div>
+
+    <div id="video-chat" class="container hidden">
+        <div class="nav-bar">
+            <button id="profileBtn">Profil</button>
+            <button id="logoutBtn">Çıkış</button>
+        </div>
+        <div class="chat-container">
+            <div class="video-container">
+                <video id="localVideo" autoplay playsinline muted></video>
+                <video id="remoteVideo" autoplay playsinline></video>
+            </div>
+            <div class="chat-box">
+                <div id="messages" class="messages"></div>
+                <form id="chat-form" class="chat-input">
+                    <input type="text" id="message-input" placeholder="Mesajınızı yazın...">
+                    <button type="submit">Gönder</button>
+                </form>
+            </div>
+            <div class="controls">
+                <button id="startMatch">Eşleş</button>
+                <button id="stopMatch" disabled>Durdur</button>
+                <button id="toggleVideo">Video Aç/Kapat</button>
+                <button id="toggleAudio">Ses Aç/Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-page" class="container hidden">
+        <div class="profile-header">
+            <h2>Profil Bilgileri</h2>
+            <div class="profile-actions">
+                <button id="editProfileBtn">Profili Düzenle</button>
+                <button id="backToChat">Sohbete Dön</button>
+            </div>
+        </div>
+        
+        <div class="profile-info">
+            <div class="profile-image">
+                <img id="profileImage" src="/images/default-profile.png" alt="Profil Resmi">
+                <form id="imageUploadForm" class="hidden">
+                    <input type="file" id="imageInput" accept="image/*">
+                    <button type="submit">Resmi Güncelle</button>
+                </form>
+            </div>
+
+            <div class="user-details">
+                <div id="profileView">
+                    <h3>Kişisel Bilgiler</h3>
+                    <p><strong>Ad Soyad:</strong> <span id="profileFullName"></span></p>
+                    <p><strong>Yaş:</strong> <span id="profileAge"></span></p>
+                    <p><strong>Ülke:</strong> <span id="profileCountry"></span></p>
+                    <p><strong>Hakkımda:</strong> <span id="profileBio"></span></p>
+                    <p><strong>Website:</strong> <span id="profileWebsite"></span></p>
+                </div>
+
+                <form id="profileEditForm" class="hidden">
+                    <h3>Profili Düzenle</h3>
+                    <input type="text" id="editFirstName" placeholder="Ad">
+                    <input type="text" id="editLastName" placeholder="Soyad">
+                    <input type="number" id="editAge" placeholder="Yaş">
+                    <input type="text" id="editCountry" placeholder="Ülke">
+                    <textarea id="editBio" placeholder="Hakkımda"></textarea>
+                    <input type="url" id="editWebsite" placeholder="Website">
+                    <div class="social-media">
+                        <input type="text" id="editInstagram" placeholder="Instagram Kullanıcı Adı">
+                        <input type="text" id="editTwitter" placeholder="Twitter Kullanıcı Adı">
+                    </div>
+                    <button type="submit">Kaydet</button>
+                    <button type="button" id="cancelEdit">İptal</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="blog-section">
+            <h3>Blog Yazıları</h3>
+            <form id="blogForm">
+                <input type="text" id="blogTitle" placeholder="Başlık" required>
+                <textarea id="blogContent" placeholder="Blog yazınızı buraya girin..." required></textarea>
+                <button type="submit">Yayınla</button>
+            </form>
+
+            <div id="blogPosts" class="blog-posts">
+                <!-- Blog yazıları buraya dinamik olarak eklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Socket.IO client'ı ekle -->
+    <script src="/node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
