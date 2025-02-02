@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Temel CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS için güvenli alan desteği */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Mobil cihazlar için temel optimizasyonlar */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-gray-50;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
+}
+
+/* Safari için özel stiller */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Firefox için özel stiller */
+@-moz-document url-prefix() {
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+}
+
+/* Mobil cihazlarda dokunma ve kaydırma optimizasyonları */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* Responsive tipografi */
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  
+  @screen sm {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  @screen md {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  @screen lg {
+    html {
+      font-size: 16px;
+    }
+  }
+}
+
+/* Karanlık mod desteği */
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-gray-900;
+  }
+}
+
+/* Form elementleri için özel stiller */
+@layer components {
+  .form-input {
+    @apply w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500;
+  }
+
+  .form-textarea {
+    @apply w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500;
+  }
+
+  .form-select {
+    @apply w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500;
+  }
+
+  .form-checkbox {
+    @apply rounded border-gray-300 text-red-600 shadow-sm focus:border-red-500 focus:ring-red-500;
+  }
+
+  .form-radio {
+    @apply border-gray-300 text-red-600 shadow-sm focus:border-red-500 focus:ring-red-500;
+  }
+} 

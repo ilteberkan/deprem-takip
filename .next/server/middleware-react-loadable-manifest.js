@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"pages/earthquake/[id].tsx -> ../../components/Map\":{\"id\":\"pages/earthquake/[id].tsx -> ../../components/Map\",\"files\":[\"static/chunks/components_Map_tsx.js\"]}}"
