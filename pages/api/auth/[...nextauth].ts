@@ -1,7 +1,19 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthOptions, Session, User } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from '../../../lib/mongodb';
+
+// TypeScript için session ve user tiplerini genişletiyoruz
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string; // Burada id özelliğini ekliyoruz
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,9 +29,9 @@ export const authOptions: NextAuthOptions = {
     error: '/auth/error',
   },
   callbacks: {
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       if (session?.user) {
-        session.user.id = token.sub;
+        session.user.id = token.sub as string; // Burada token.sub'u string olarak ayarlıyoruz
       }
       return session;
     },
