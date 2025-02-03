@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { fetchLatestEarthquakes } from '../services/earthquakeService';
 import dynamic from 'next/dynamic';
 import { Earthquake } from '../types';
+import Clock from '../components/Clock';
 
 // Map bileşenini client-side'da yükle
 const Map = dynamic(() => import('../components/Map'), {
@@ -32,6 +33,7 @@ export default function LocalEarthquakes() {
 
   return (
     <div className="container mx-auto p-4">
+      <Clock />
       <h1 className="text-2xl font-bold mb-4">Bölgenizdeki Depremler</h1>
       {userLocation ? (
         <Map 

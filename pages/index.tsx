@@ -6,6 +6,7 @@ import CountryFlag from '../components/CountryFlag';
 import { useRouter } from 'next/router';
 import Logo from '../components/Logo';
 import { toast } from 'react-hot-toast';
+import Clock from '../components/Clock';
 
 // Koordinat formatlama fonksiyonu
 const formatCoordinates = (coords: [number, number]) => {
@@ -76,6 +77,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 safe-area-top safe-area-bottom">
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+        <Clock />
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <Logo />

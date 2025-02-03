@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/gsFfnM_KG7oz261_h7JTO/_buildManifest.js",
-    "static/gsFfnM_KG7oz261_h7JTO/_ssgManifest.js"
+    "static/kPth-AzBdcgCy07cLSS-D/_buildManifest.js",
+    "static/kPth-AzBdcgCy07cLSS-D/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
@@ -16,13 +16,13 @@
       "static/chunks/framework-b96261d959dd50e7.js",
       "static/chunks/main-efe70e38e20efa24.js",
       "static/chunks/392-1648afe4ffecb6c6.js",
-      "static/chunks/pages/index-a0d0406259320238.js"
+      "static/chunks/pages/index-7e145c5a72b2d13d.js"
     ],
     "/_app": [
       "static/chunks/webpack-e780b3d534314f3a.js",
       "static/chunks/framework-b96261d959dd50e7.js",
       "static/chunks/main-efe70e38e20efa24.js",
-      "static/css/a0db17699bae6175.css",
+      "static/css/530d5062d0c5edf2.css",
       "static/chunks/pages/_app-cecfeb8ac84a86b5.js"
     ],
     "/_error": [
@@ -48,7 +48,7 @@
       "static/chunks/webpack-e780b3d534314f3a.js",
       "static/chunks/framework-b96261d959dd50e7.js",
       "static/chunks/main-efe70e38e20efa24.js",
-      "static/chunks/pages/local-earthquakes-2a19dabf75bb4a46.js"
+      "static/chunks/pages/local-earthquakes-5dd2043e344e5eef.js"
     ],
     "/major-earthquakes": [
       "static/chunks/webpack-e780b3d534314f3a.js",
