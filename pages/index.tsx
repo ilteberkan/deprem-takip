@@ -7,13 +7,14 @@ import { useRouter } from 'next/router';
 import Logo from '../components/Logo';
 import { toast } from 'react-hot-toast';
 import Clock from '../components/Clock';
+import { useSession } from 'next-auth/react';
 
 // Koordinat formatlama fonksiyonu
 const formatCoordinates = (coords: [number, number]) => {
   return `${coords[0].toFixed(4)}°N, ${coords[1].toFixed(4)}°E`;
 };
 
-export default function Home() {
+const Home = () => {
   const router = useRouter();
   const { data: earthquakes, isLoading, isError, refetch } = useQuery<Earthquake[]>(
     'earthquakes', 
@@ -28,6 +29,8 @@ export default function Home() {
       }
     }
   );
+
+  const { data: session } = useSession();
 
   const handleRefresh = async () => {
     try {
@@ -160,4 +163,6 @@ export default function Home() {
       </div>
     </div>
   );
-} 
+};
+
+export default Home; 

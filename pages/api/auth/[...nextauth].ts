@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions, Session, User } from 'next-auth';
+import NextAuth, { NextAuthOptions, Session, User, JWT } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from '../../../lib/mongodb';
@@ -12,6 +12,10 @@ declare module 'next-auth' {
       email?: string | null;
       image?: string | null;
     };
+  }
+  
+  interface JWT {
+    id?: string; // Token'a id özelliğini ekliyoruz
   }
 }
 
@@ -31,7 +35,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (session?.user) {
-        session.user.id = token.sub as string; // Burada token.sub'u string olarak ayarlıyoruz
+        session.user.id = token.id as string; // Burada token.id'yi kullanıyoruz
       }
       return session;
     },
