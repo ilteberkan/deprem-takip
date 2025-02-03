@@ -1,39 +1,48 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { fetchEarthquakes } from '../services/earthquakeService';
-import Map from '../components/Map';
+import { fetchLatestEarthquakes } from '../services/earthquakeService';
+import dynamic from 'next/dynamic';
+import { Earthquake } from '../types';
+
+// Map bileşenini client-side'da yükle
+const Map = dynamic(() => import('../components/Map'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[400px] w-full rounded-lg overflow-hidden bg-gray-100 animate-pulse" />
+  ),
+});
 
 export default function LocalEarthquakes() {
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
-  const { data: earthquakes, isLoading, isError } = useQuery('earthquakes', fetchEarthquakes);
+  const { data: earthquakes } = useQuery<Earthquake[]>('earthquakes', fetchLatestEarthquakes);
 
+  // useEffect'i client-side'da çalıştır
   useEffect(() => {
-    if (navigator.geolocation) {
+    if (typeof window !== 'undefined' && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setUserLocation([position.coords.latitude, position.coords.longitude]);
         },
         (error) => {
-          console.error('Konum bilgisi alınamadı:', error);
-          alert('Konum bilgisi alınamadı. Lütfen tarayıcınızın konum izinlerini kontrol edin.');
+          console.error('Konum alınamadı:', error);
         }
       );
-    } else {
-      console.error('Tarayıcınız konum bilgisini desteklemiyor.');
-      alert('Tarayıcınız konum bilgisini desteklemiyor.');
     }
   }, []);
-
-  if (isLoading) return <div>Yükleniyor...</div>;
-  if (isError) return <div>Hata oluştu</div>;
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Bölgenizdeki Depremler</h1>
       {userLocation ? (
-        <Map location={userLocation} earthquakes={earthquakes} />
+        <Map 
+          location={userLocation} 
+          earthquakes={earthquakes}
+          zoom={8}
+        />
       ) : (
-        <div>Konum bilgisi alınıyor veya izin verilmedi...</div>
+        <div className="bg-gray-100 rounded-lg p-4 text-gray-600">
+          Konum bilgisi alınıyor veya izin verilmedi...
+        </div>
       )}
     </div>
   );

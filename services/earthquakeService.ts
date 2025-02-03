@@ -67,12 +67,57 @@ export const fetchEarthquakes = async (): Promise<Earthquake[]> => {
   }
 };
 
+interface ApiEarthquake {
+  _id: string;
+  title: string;
+  date: string;
+  mag: string;
+  depth: string;
+  geojson: {
+    coordinates: [number, number];
+  };
+}
+
+export const fetchLatestEarthquakes = async (): Promise<Earthquake[]> => {
+  try {
+    const response = await fetch('https://api.orhanaydogdu.com.tr/deprem/kandilli/live?limit=100');
+    
+    if (!response.ok) {
+      throw new Error('Deprem verileri alınamadı');
+    }
+
+    const data = await response.json();
+
+    if (!data.result || !Array.isArray(data.result)) {
+      throw new Error('Geçersiz veri formatı');
+    }
+
+    return data.result
+      .filter((item: ApiEarthquake) => item.geojson?.coordinates)
+      .map((item: ApiEarthquake): Earthquake => ({
+        id: item._id || String(new Date().getTime()),
+        location: item.title || 'Konum bilgisi yok',
+        date: item.date || new Date().toISOString(),
+        magnitude: parseFloat(item.mag) || 0,
+        depth: parseFloat(item.depth) || 0,
+        coordinates: [
+          parseFloat(String(item.geojson.coordinates[1])) || 39.9334,
+          parseFloat(String(item.geojson.coordinates[0])) || 32.8597
+        ] as [number, number]
+      }))
+      .sort((a: Earthquake, b: Earthquake) => 
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+
+  } catch (error) {
+    console.error('Deprem verileri çekilirken hata:', error);
+    return [];
+  }
+};
+
 export const fetchEarthquakeById = async (id: string): Promise<Earthquake | null> => {
   try {
-    // Önce tüm depremleri çek
-    const earthquakes = await fetchEarthquakes();
-    
-    // ID'ye göre depremi bul
+    const earthquakes = await fetchLatestEarthquakes();
     const earthquake = earthquakes.find(eq => eq.id === id);
     
     if (!earthquake) {
@@ -83,41 +128,5 @@ export const fetchEarthquakeById = async (id: string): Promise<Earthquake | null
   } catch (error) {
     console.error('Deprem detayı alınırken hata:', error);
     return null;
-  }
-};
-
-// Yeni eklenen fonksiyon - son 100 depremi çek
-export const fetchLatestEarthquakes = async (): Promise<Earthquake[]> => {
-  try {
-    const response = await fetch('https://api.orhanaydogdu.com.tr/deprem/kandilli/live?limit=100');
-    
-    if (!response.ok) {
-      throw new Error('Son depremler alınamadı');
-    }
-
-    const data = await response.json();
-
-    if (!data.result || !Array.isArray(data.result)) {
-      throw new Error('Geçersiz veri formatı');
-    }
-
-    return data.result
-      .filter((item: any) => item.geojson?.coordinates)
-      .map((item: any) => ({
-        id: item._id || String(new Date().getTime()),
-        location: item.title || 'Konum bilgisi yok',
-        date: item.date || new Date().toISOString(),
-        magnitude: parseFloat(item.mag) || 0,
-        depth: parseFloat(item.depth) || 0,
-        coordinates: [
-          parseFloat(item.geojson.coordinates[1]) || 39.9334,
-          parseFloat(item.geojson.coordinates[0]) || 32.8597
-        ] as [number, number]
-      }))
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  } catch (error) {
-    console.error('Son depremler çekilirken hata:', error);
-    return [];
   }
 }; 

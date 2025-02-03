@@ -1,37 +1,60 @@
 {
   "polyfillFiles": [
-    "static/chunks/polyfills.js"
+    "static/chunks/polyfills-42372ed130431b0a.js"
   ],
-  "devFiles": [
-    "static/chunks/react-refresh.js"
-  ],
+  "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/development/_buildManifest.js",
-    "static/development/_ssgManifest.js"
+    "static/xuG86hs6H0Q4ePnVy74tH/_buildManifest.js",
+    "static/xuG86hs6H0Q4ePnVy74tH/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
   "pages": {
     "/": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/index.js"
+      "static/chunks/webpack-e780b3d534314f3a.js",
+      "static/chunks/framework-b96261d959dd50e7.js",
+      "static/chunks/main-efe70e38e20efa24.js",
+      "static/chunks/392-1648afe4ffecb6c6.js",
+      "static/chunks/pages/index-a0d0406259320238.js"
     ],
     "/_app": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/_app.js"
+      "static/chunks/webpack-e780b3d534314f3a.js",
+      "static/chunks/framework-b96261d959dd50e7.js",
+      "static/chunks/main-efe70e38e20efa24.js",
+      "static/css/a0db17699bae6175.css",
+      "static/chunks/pages/_app-cecfeb8ac84a86b5.js"
     ],
     "/_error": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/_error.js"
+      "static/chunks/webpack-e780b3d534314f3a.js",
+      "static/chunks/framework-b96261d959dd50e7.js",
+      "static/chunks/main-efe70e38e20efa24.js",
+      "static/chunks/pages/_error-fde50cb7f1ab27e0.js"
+    ],
+    "/auth/signin": [
+      "static/chunks/webpack-e780b3d534314f3a.js",
+      "static/chunks/framework-b96261d959dd50e7.js",
+      "static/chunks/main-efe70e38e20efa24.js",
+      "static/chunks/pages/auth/signin-52ee6f1cfeca55fe.js"
     ],
     "/earthquake/[id]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/earthquake/[id].js"
+      "static/chunks/webpack-e780b3d534314f3a.js",
+      "static/chunks/framework-b96261d959dd50e7.js",
+      "static/chunks/main-efe70e38e20efa24.js",
+      "static/chunks/135-b8f40e5c37babf54.js",
+      "static/chunks/pages/earthquake/[id]-3d0120193427ab62.js"
+    ],
+    "/local-earthquakes": [
+      "static/chunks/webpack-e780b3d534314f3a.js",
+      "static/chunks/framework-b96261d959dd50e7.js",
+      "static/chunks/main-efe70e38e20efa24.js",
+      "static/chunks/pages/local-earthquakes-2a19dabf75bb4a46.js"
+    ],
+    "/major-earthquakes": [
+      "static/chunks/webpack-e780b3d534314f3a.js",
+      "static/chunks/framework-b96261d959dd50e7.js",
+      "static/chunks/main-efe70e38e20efa24.js",
+      "static/chunks/pages/major-earthquakes-92c2ff28aa43c1e4.js"
     ]
   },
   "ampFirstPages": []

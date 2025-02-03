@@ -1,9 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/earthquake/[id]": "pages/earthquake/[id].js",
-  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
-  "/api/comments/[earthquakeId]": "pages/api/comments/[earthquakeId].js"
-}
+{"/_app":"pages/_app.js","/_document":"pages/_document.js","/api/comments/[earthquakeId]":"pages/api/comments/[earthquakeId].js","/api/db-status":"pages/api/db-status.js","/api/test-db":"pages/api/test-db.js","/auth/signin":"pages/auth/signin.html","/earthquake/[id]":"pages/earthquake/[id].html","/":"pages/index.html","/local-earthquakes":"pages/local-earthquakes.html","/major-earthquakes":"pages/major-earthquakes.html","/_error":"pages/_error.js","/api/auth/[...nextauth]":"pages/api/auth/[...nextauth].js","/404":"pages/404.html"}

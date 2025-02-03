@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
-Sitemap: https://deprem-takip.vercel.app/sitemap.xml 
+# Host
+Host: https://your-project-name.vercel.app
+
+# Sitemaps
+Sitemap: https://your-project-name.vercel.app/sitemap.xml

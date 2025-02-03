@@ -15,43 +15,36 @@ export function detectCountry(location: string): string {
     return 'TR';
   }
   
-  return 'TR'; // Şimdilik hepsi Türkiye
+  return 'UNKNOWN';
 }
 
-// Ülke bayrakları için SVG komponentleri
-export const Flags: Record<string, React.FC> = {
+interface CountryFlag {
+  TR: React.FC;
+  UNKNOWN: React.FC;
+}
+
+export const Flags: CountryFlag = {
   TR: () => (
-    <div className="w-full h-full relative">
-      <svg 
-        viewBox="0 0 30 20"
-        className="w-full h-full"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <rect width="30" height="20" fill="#E30A17"/>
-        <circle cx="13" cy="10" r="5" fill="#ffffff"/>
-        <circle cx="14.5" cy="10" r="4" fill="#E30A17"/>
-        <path
-          d="M16.5 10l4 1.5l-2.5,-3.5l0,4l2.5,-3.5z"
-          fill="#ffffff"
-        />
-      </svg>
-    </div>
-  ),
-  US: () => (
-    <div className="w-full h-full relative">
-      {/* Amerika bayrağı SVG'si buraya eklenebilir */}
-    </div>
+    <svg viewBox="0 0 1200 800" className="w-full h-full">
+      <rect width="1200" height="800" fill="#E30A17"/>
+      <circle cx="425" cy="400" r="200" fill="#ffffff"/>
+      <circle cx="475" cy="400" r="160" fill="#E30A17"/>
+      <circle cx="550" cy="400" r="80" fill="#ffffff"/>
+      <path
+        d="M583.334 400l116.673-37.89-72.075 98.89 72.075 98.89-116.673-37.89-116.673 37.89 72.075-98.89-72.075-98.89z"
+        fill="#ffffff"
+      />
+    </svg>
   ),
   UNKNOWN: () => (
-    <div className="w-full h-full relative">
-      <svg 
-        viewBox="0 0 30 20"
-        className="w-full h-full"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <rect width="30" height="20" fill="#CCCCCC"/>
-        <text x="15" y="10" textAnchor="middle" fill="#666666" fontSize="10">?</text>
-      </svg>
-    </div>
+    <svg viewBox="0 0 1200 800" className="w-full h-full">
+      <rect width="1200" height="800" fill="#CCCCCC"/>
+      <text x="600" y="400" textAnchor="middle" fill="#666666" fontSize="100">?</text>
+    </svg>
   )
+};
+
+export const getCountryFlag = (countryCode: keyof typeof Flags) => {
+  const Flag = Flags[countryCode];
+  return Flag ? <Flag /> : null;
 }; 

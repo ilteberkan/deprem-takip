@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, MongoClientOptions } from 'mongodb';
 
 if (!process.env.MONGODB_URI) {
   throw new Error('MONGODB_URI environment variable is not defined');
@@ -7,12 +7,14 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI;
 
 // Connection options
-const options = {
+const options: MongoClientOptions = {
   connectTimeoutMS: 30000,
   socketTimeoutMS: 45000,
   maxPoolSize: 10,
   retryWrites: true,
-  w: 'majority'
+  writeConcern: {
+    w: 'majority'
+  }
 };
 
 let client: MongoClient;

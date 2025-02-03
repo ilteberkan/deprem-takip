@@ -1,9 +1,23 @@
-import NextAuth from 'next-auth';
+import NextAuth, { 
+  NextAuthOptions, 
+  Session, 
+  User,
+  DefaultSession 
+} from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from '../../../lib/mongodb';
+import { JWT } from 'next-auth/jwt';
 
-export const authOptions = {
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user?: {
+      id?: string;
+    } & DefaultSession['user']
+  }
+}
+
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -17,7 +31,7 @@ export const authOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      if (session?.user) {
+      if (session.user) {
         session.user.id = token.sub;
       }
       return session;

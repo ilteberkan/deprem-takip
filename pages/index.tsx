@@ -31,7 +31,7 @@ export default function Home() {
   const handleRefresh = async () => {
     try {
       // Yenileme butonunu devre dışı bırak ve loading durumuna geç
-      const button = document.getElementById('refresh-button');
+      const button = document.getElementById('refresh-button') as HTMLButtonElement;
       if (button) {
         button.disabled = true;
         button.classList.add('opacity-75');
@@ -45,7 +45,7 @@ export default function Home() {
     } catch (error) {
       console.error('Yenileme hatası:', error);
       // Hata durumunda butonu tekrar aktif et
-      const button = document.getElementById('refresh-button');
+      const button = document.getElementById('refresh-button') as HTMLButtonElement;
       if (button) {
         button.disabled = false;
         button.classList.remove('opacity-75');

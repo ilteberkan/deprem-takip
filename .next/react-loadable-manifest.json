@@ -1,8 +1,24 @@
 {
-  "pages/earthquake/[id].tsx -> ../../components/Map": {
-    "id": "pages/earthquake/[id].tsx -> ../../components/Map",
+  "components/Map.tsx -> react-leaflet": {
+    "id": 3571,
     "files": [
-      "static/chunks/components_Map_tsx.js"
+      "static/chunks/571.b9c20701a213c814.js"
+    ]
+  },
+  "pages/earthquake/[id].tsx -> ../../components/Map": {
+    "id": 9598,
+    "files": [
+      "static/css/63516b7b0d9e3452.css",
+      "static/chunks/0b7b90cd.1642917de219cff0.js",
+      "static/chunks/598.8190db7607a13791.js"
+    ]
+  },
+  "pages/local-earthquakes.tsx -> ../components/Map": {
+    "id": 9598,
+    "files": [
+      "static/css/63516b7b0d9e3452.css",
+      "static/chunks/0b7b90cd.1642917de219cff0.js",
+      "static/chunks/598.8190db7607a13791.js"
     ]
   }
 }

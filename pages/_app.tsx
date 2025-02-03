@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import type { AppProps } from 'next/app';
 import '../styles/globals.css';
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
 
 // QueryClient örneği oluştur
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
               },
             }}
           />
+          <Analytics />
         </QueryClientProvider>
       </SessionProvider>
     </>
