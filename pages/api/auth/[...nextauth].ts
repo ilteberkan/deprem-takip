@@ -35,6 +35,12 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id; // Kullanıcı bilgilerini token'a ekleyin
+      }
+      return token;
+    },
   },
   debug: process.env.NODE_ENV === 'development',
 };
