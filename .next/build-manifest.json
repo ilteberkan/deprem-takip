@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/kPth-AzBdcgCy07cLSS-D/_buildManifest.js",
-    "static/kPth-AzBdcgCy07cLSS-D/_ssgManifest.js"
+    "static/z0KNmv1OyCoICqBmNgLKf/_buildManifest.js",
+    "static/z0KNmv1OyCoICqBmNgLKf/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
@@ -16,7 +16,7 @@
       "static/chunks/framework-b96261d959dd50e7.js",
       "static/chunks/main-efe70e38e20efa24.js",
       "static/chunks/392-1648afe4ffecb6c6.js",
-      "static/chunks/pages/index-7e145c5a72b2d13d.js"
+      "static/chunks/pages/index-aa7620e26b8cefd2.js"
     ],
     "/_app": [
       "static/chunks/webpack-e780b3d534314f3a.js",
@@ -42,7 +42,7 @@
       "static/chunks/framework-b96261d959dd50e7.js",
       "static/chunks/main-efe70e38e20efa24.js",
       "static/chunks/135-b8f40e5c37babf54.js",
-      "static/chunks/pages/earthquake/[id]-3d0120193427ab62.js"
+      "static/chunks/pages/earthquake/[id]-aa42b8ea612689d0.js"
     ],
     "/local-earthquakes": [
       "static/chunks/webpack-e780b3d534314f3a.js",
