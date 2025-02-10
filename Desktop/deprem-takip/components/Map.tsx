@@ -1,8 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { LatLngExpression } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
-import "leaflet-defaulticon-compatibility";
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Earthquake } from '../types';
@@ -16,9 +12,15 @@ interface MapProps {
   zoom?: number;
 }
 
-// MapContainer'ı client-side'da yükle
-const MapWithNoSSR = dynamic(
-  () => import('react-leaflet').then((mod) => mod.MapContainer),
+// Dynamically import all Leaflet components
+const Map = dynamic(
+  () => import('react-leaflet').then((mod) => {
+    // These need to be required here
+    require('leaflet/dist/leaflet.css');
+    require('leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css');
+    require('leaflet-defaulticon-compatibility');
+    return mod.MapContainer;
+  }),
   {
     ssr: false,
     loading: () => (
@@ -26,6 +28,18 @@ const MapWithNoSSR = dynamic(
     ),
   }
 );
+
+const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), {
+  ssr: false
+});
+
+const Marker = dynamic(() => import('react-leaflet').then((mod) => mod.Marker), {
+  ssr: false
+});
+
+const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), {
+  ssr: false
+});
 
 const MapComponent: React.FC<MapProps> = ({ 
   location, 
@@ -47,7 +61,7 @@ const MapComponent: React.FC<MapProps> = ({
 
   return (
     <div className="h-[400px] w-full rounded-lg overflow-hidden">
-      <MapWithNoSSR 
+      <Map 
         center={validLocation}
         zoom={zoom} 
         scrollWheelZoom={false}
@@ -60,9 +74,22 @@ const MapComponent: React.FC<MapProps> = ({
         {title ? (
           <Marker position={validLocation}>
             <Popup>
-              <div>
-                <h3 className="font-semibold">Deprem Bölgesi</h3>
-                <p>{title}</p>
+              <div className="p-2">
+                <h3 className="text-lg font-bold text-gray-800 mb-2">{title}</h3>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <svg className={`w-4 h-4 text-gray-600`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span>Deprem Bölgesi</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    <span>{location[0].toFixed(4)}°N, {location[1].toFixed(4)}°E</span>
+                  </div>
+                </div>
               </div>
             </Popup>
           </Marker>
@@ -104,7 +131,7 @@ const MapComponent: React.FC<MapProps> = ({
             </Popup>
           </Marker>
         ))}
-      </MapWithNoSSR>
+      </Map>
     </div>
   );
 };

@@ -67,6 +67,8 @@ export const fetchEarthquakes = async (): Promise<Earthquake[]> => {
   }
 };
 
+const API_BASE_URL = 'https://api.orhanaydogdu.com.tr/deprem/kandilli';
+
 interface ApiEarthquake {
   _id: string;
   title: string;
@@ -129,4 +131,79 @@ export const fetchEarthquakeById = async (id: string): Promise<Earthquake | null
     console.error('Deprem detayı alınırken hata:', error);
     return null;
   }
-}; 
+};
+
+export const fetchLast24HoursEarthquakes = async (): Promise<Earthquake[]> => {
+  try {
+    const now = new Date();
+    const yesterday = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+    const yesterdayISO = yesterday.toISOString().split('T')[0];
+
+    const response = await fetch(`${API_BASE_URL}/live?limit=1000`);
+    if (!response.ok) {
+      throw new Error('Deprem verileri alınamadı');
+    }
+    const data = await response.json();
+
+    if (!data.result || !Array.isArray(data.result)) {
+      throw new Error('Geçersiz veri formatı');
+    }
+
+    return data.result
+      .filter((item: ApiEarthquake) => new Date(item.date) >= yesterday)
+      .map((item: ApiEarthquake): Earthquake => ({
+        id: item._id || String(new Date().getTime()),
+        location: item.title || 'Konum bilgisi yok',
+        date: item.date || new Date().toISOString(),
+        magnitude: parseFloat(item.mag) || 0,
+        depth: parseFloat(item.depth) || 0,
+        coordinates: [
+          parseFloat(String(item.geojson.coordinates[1])) || 39.9334,
+          parseFloat(String(item.geojson.coordinates[0])) || 32.8597
+        ] as [number, number]
+      }))
+      .sort((a: Earthquake, b: Earthquake) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+  } catch (error) {
+    console.error('Son 24 saatteki depremler çekilirken hata:', error);
+    return [];
+  }
+};
+
+export const fetchMajorEarthquakes = async (): Promise<Earthquake[]> => {
+  try {
+    const now = new Date();
+    const yesterday = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+
+    const response = await fetch(`${API_BASE_URL}/live?limit=1000`);
+    if (!response.ok) {
+      throw new Error('Deprem verileri alınamadı');
+    }
+    const data = await response.json();
+
+    if (!data.result || !Array.isArray(data.result)) {
+      throw new Error('Geçersiz veri formatı');
+    }
+
+    return data.result
+      .filter((item: ApiEarthquake) => parseFloat(item.mag) >= 5 && new Date(item.date) >= yesterday)
+      .map((item: ApiEarthquake): Earthquake => ({
+        id: item._id || String(new Date().getTime()),
+        location: item.title || 'Konum bilgisi yok',
+        date: item.date || new Date().toISOString(),
+        magnitude: parseFloat(item.mag) || 0,
+        depth: parseFloat(item.depth) || 0,
+        coordinates: [
+          parseFloat(String(item.geojson.coordinates[1])) || 39.9334,
+          parseFloat(String(item.geojson.coordinates[0])) || 32.8597
+        ] as [number, number]
+      }))
+      .sort((a: Earthquake, b: Earthquake) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+  } catch (error) {
+    console.error('Büyük depremler çekilirken hata:', error);
+    return [];
+  }
+};

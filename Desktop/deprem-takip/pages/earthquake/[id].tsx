@@ -194,7 +194,12 @@ export default function EarthquakeDetail() {
         <div className="rounded-xl overflow-hidden shadow-inner">
           <MapWithNoSSR
             location={earthquake.coordinates}
-            title={earthquake.location}
+            earthquakes={[{
+              ...earthquake,
+              id: id as string,
+              coordinates: earthquake.coordinates
+            }]}
+            zoom={13}
           />
         </div>
       </div>

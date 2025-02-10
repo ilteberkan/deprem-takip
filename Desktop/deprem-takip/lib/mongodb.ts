@@ -66,4 +66,17 @@ clientPromise
   })
   .catch(console.error);
 
-export default clientPromise; 
+export default clientPromise;
+
+// Koleksiyonları listeleme fonksiyonu (sadece geliştirme ortamında)
+if (process.env.NODE_ENV === 'development') {
+  clientPromise.then(async (client) => {
+    try {
+      const db = client.db();
+      const collections = await db.listCollections().toArray();
+      console.log('Koleksiyonlar:', collections.map(col => col.name));
+    } catch (error) {
+      console.error('Koleksiyonları listeleme hatası:', error);
+    }
+  });
+}
